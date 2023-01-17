@@ -13,6 +13,9 @@ class Setting extends Model
 
     protected $with =['translations'];
 
+
+    protected $hidden =['translations'];
+
     protected $fillable = ['key','is_translatable','plain_value'];
 
     protected $casts =[

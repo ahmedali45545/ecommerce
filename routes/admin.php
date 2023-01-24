@@ -5,8 +5,11 @@ use App\Http\Controllers\LangController;
 use App\Http\Controllers\Dashboard\TagController;
 use App\Http\Controllers\Dashboard\BrandController;
 use App\Http\Controllers\Dashboard\LoginController;
+use App\Http\Controllers\Dashboard\OptionController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\AttributeController;
 use App\Http\Controllers\Dashboard\SubCategoryController;
 use App\Http\Controllers\Dashboard\MainCategoryController;
 
@@ -78,6 +81,44 @@ Route::middleware('setLang')->group(function (){
             Route::get('delete/{id}',  [TagController::class, 'destroy'])->name('tags.destroy');
         });
         ///////////////////end tags route////////////////
+        ///////////////////products route////////////////
+        Route::group(['prefix'=>'products'], function () {
+            Route::get('/',  [ProductController::class, 'index'])->name('products.index');
+            Route::get('/create',  [ProductController::class, 'create'])->name('products.create');
+            Route::post('/',  [ProductController::class, 'store'])->name('products.store');
+            Route::get('getPrice/{id}',  [ProductController::class, 'getPrice'])->name('products.price');
+            Route::post('/storePrice',  [ProductController::class, 'storePrice'])->name('products.price.store');
+            Route::get('getStock/{id}',  [ProductController::class, 'getStock'])->name('products.stock');
+            Route::post('/storeStock',  [ProductController::class, 'storeStock'])->name('products.stock.store');
+            Route::get('images/{id}',  [ProductController::class, 'getImages'])->name('products.images');
+            Route::post('/images',  [ProductController::class, 'storeImages'])->name('products.images.store');
+            //////save images to database
+            Route::post('/imagesDB',  [ProductController::class, 'storeImagesDB'])->name('products.images.store.db');
+            //Route::get('edit/{id}',  [ProductController::class, 'edit'])->name('products.general.edit');
+            //Route::post('update/{id}',  [ProductController::class, 'update'])->name('products.update');
+            //Route::get('delete/{id}',  [ProductController::class, 'destroy'])->name('products.destroy');
+        });
+        ///////////////////end products route////////////////
+        ################################## attrributes routes ######################################
+        Route::group(['prefix' => 'attributes'], function () {
+            Route::get('/', [AttributeController::class,'index'])->name('attributes.index');
+            Route::get('create', [AttributeController::class,'create'])->name('attributes.create');
+            Route::post('store', [AttributeController::class,'store'])->name('attributes.store');
+            Route::get('delete/{id}',[AttributeController::class,'destroy'])->name('attributes.delete');
+            Route::get('edit/{id}', [AttributeController::class,'edit'])->name('attributes.edit');
+            Route::post('update/{id}', [AttributeController::class,'update'])->name('attributes.update');
+        });
+        ################################## end attributes    #######################################
+        ################################## options routes ######################################
+        Route::group(['prefix' => 'options'], function () {
+            Route::get('/', [OptionController::class,'index'])->name('options.index');
+            Route::get('create', [OptionController::class,'create'])->name('options.create');
+            Route::post('store', [OptionController::class,'store'])->name('options.store');
+            Route::get('delete/{id}',[OptionController::class,'destroy'])->name('options.delete');
+            Route::get('edit/{id}', [OptionController::class,'edit'])->name('options.edit');
+            Route::post('update/{id}', [OptionController::class,'update'])->name('options.update');
+        });
+        ################################## end attributes    #######################################
     });
     
     ///////////////////end main_categories route////////////////

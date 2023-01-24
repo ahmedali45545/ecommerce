@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Product;
+use App\Models\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Tag extends Model
+class Option extends Model
 {
     use HasFactory;
     use Translatable;
@@ -18,13 +20,17 @@ class Tag extends Model
     protected $translatedAttributes = ['name'];
 
     
-    protected $fillable = ['slug'];
+    protected $fillable = ['attribute_id', 'product_id','price'];
 
     
     protected $hidden = ['translations'];
 
-    public function scopeActive($query)
+    public function product()
     {
-        return $query->where('is_active', 1);
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function attribute(){
+        return $this -> belongsTo(Attribute::class,'attribute_id');
     }
 }

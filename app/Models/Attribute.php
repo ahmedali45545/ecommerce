@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Option;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Tag extends Model
+class Attribute extends Model
 {
     use HasFactory;
     use Translatable;
@@ -14,17 +15,13 @@ class Tag extends Model
     
     protected $with = ['translations'];
 
+    protected $guarded = [];
 
-    protected $translatedAttributes = ['name'];
 
-    
-    protected $fillable = ['slug'];
+    public $translatedAttributes = ['name'];
 
-    
-    protected $hidden = ['translations'];
 
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', 1);
+    public  function options(){
+        return $this->hasMany(Option::class,'attribute_id');
     }
 }

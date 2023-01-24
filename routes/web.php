@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin1', function () {
-    return view('layouts.admin');
+Route::get('/', function () {
+    return view('site.home');
 });
